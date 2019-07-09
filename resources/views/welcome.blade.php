@@ -80,8 +80,17 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="m-b-md">
+                    
+                    @foreach ($posts as $key => $post)
+
+                        <a href="posts/{{ $post->id }}">
+                            <h2>{{ $post->title }}</h2>
+                        </a>
+                        <p>{{ $post->body }}</p>
+
+                    @endforeach
+                   
                 </div>
 
                 <div class="links">
