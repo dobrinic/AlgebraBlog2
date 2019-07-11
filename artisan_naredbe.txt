@@ -4,3 +4,4 @@ php artisan -h make:migration
 php artisan make:migration create_posts_table
 php artisan make:model Post
 php artisan make:controller PostController
+php artisan make:auth

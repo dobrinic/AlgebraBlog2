@@ -13,7 +13,7 @@ class PostController extends Controller
 
         $posts = Post::all();
 
-        return view('welcome', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     public function show($id){

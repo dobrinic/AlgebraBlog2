@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h2>{{ $post->title }}</h2>
-    <section>{{ $post->body }}</section>
-</body>
-</html>
+@extends('layouts.master')
+
+@section('content')
+
+<div class="blog-post">
+
+    <h2 class="blog-post-title">
+        {{ $post->title }}
+    </h2>
+
+    <p class="blog-post-meta">
+        {{ $post->created_at->toFormattedDateString() }} by <a href="#">Mark</a>
+    </p>
+
+    <article class="text-justify">
+        {{ $post->body }}
+    </article>
+
+</div>
+
+@endsection

@@ -1,0 +1,29 @@
+prvo forkati željeni repozitorij..
+
+zatim ga klonirate kod sebe lokalno
+git clone https://github.com/VAŠ_USERNAME/AlgebraBlog2.git
+
+cd AlgebraBlog2
+
+git remote add dobrinic https://github.com/dobrinic/AlgebraBlog2.git
+
+provjerite imate li 4 linka, 2 na svoj repo, 2 na dobrinic
+git remote -v
+
+// kod svakog starta rada
+git pull dobrinic master
+
+// dodaš podatke na svoj
+git add .
+git commit -m "Poruka"
+git push
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+// na githubu create pull request
+
+za instalirati novo skinuti repozitorij kod sebe lokalno pratite upute iz README.md
+
+Za izlazak iz Vim-a
+:wq! (write,quit)

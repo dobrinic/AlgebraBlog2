@@ -1,5 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-    jedan korisnik
+    svi korisnici
 @endsection

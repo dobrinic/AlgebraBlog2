@@ -16,11 +16,15 @@ Route::get('/', function () {
 });
 
 /***************** POSTS *******************/
-Route::get('/posts', 'PostController@index');
+Route::get('/posts', 'PostController@index')->name('posts.index');
 
-Route::get('/posts/{id}', 'PostController@show');
+Route::get('/posts/{id}', 'PostController@show')->name('posts.show');
 
 /***************** USERS *******************/
 Route::get('/users', function () {
-    return view('users.show');
+    return view('users.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
