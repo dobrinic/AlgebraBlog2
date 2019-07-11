@@ -1,7 +1,5 @@
 <?php
 
-use App\Post;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,21 +10,17 @@ use App\Post;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
+
 Route::get('/', function () {
-
-    // $posts = DB::table('posts')->get();
-
-    $posts = Post::all();
-
-    return view('welcome', compact('posts'));
+    return view('welcome');
 });
-*/
 
-Route::get('/', 'PostController@index');
+/***************** POSTS *******************/
+Route::get('/posts', 'PostController@index');
 
 Route::get('/posts/{id}', 'PostController@show');
 
+/***************** USERS *******************/
 Route::get('/users', function () {
     return view('users.show');
 });
