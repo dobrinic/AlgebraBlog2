@@ -7,6 +7,12 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+                               //->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +58,7 @@ class UserController extends Controller
        $user->password = bcrypt($request['password']);
        $user->save();
 
-       return redirect()->route('users.index')->withFlashMessage("Korisnik je uspješno kreiran");
+       return redirect()->route('users.index')->withFlashMessage("Korisnik $user->name uspješno je kreiran.");
     }
 
     /**
@@ -61,9 +67,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::find($id);
+        //$user = User::find($id);
 
         return view('users.show', compact('user'));
     }
@@ -74,9 +80,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        // vratiti edit.blade sa podatcima od usera koji se uređuje
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -86,9 +92,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        // slično kao store
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+            'password' => 'min:3|nullable'
+        ]);
+ 
+       // $user = User::find($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        if (!empty($request['password'])) {
+            $user->password = bcrypt($request['password']);
+        }        
+        $user->save();
+        
+        return redirect()->route('users.index')->withFlashMessage("Korisnik $user->name uspješno promijenjen.");
     }
 
     /**
@@ -97,8 +117,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // brisanje korisnika
+        $user->delete();
+        return redirect()->route('users.index')->withFlashMessage("Korisnik $user->name uspješno je izbrisan.");
     }
 }

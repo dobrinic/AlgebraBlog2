@@ -29,6 +29,8 @@
 
         <div class="col-sm-8 blog-main">
 
+          @include('layouts.messages')
+
           @yield('content')
 
         </div><!-- /.blog-main -->

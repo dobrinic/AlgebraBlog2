@@ -6,3 +6,5 @@ php artisan make:model Post
 php artisan make:controller PostController
 php artisan make:auth
 php artisan make:controller UserController -r
+php artisan migrate:refresh
+composer require cviebrock/eloquent-sluggable:^4.8

@@ -33,21 +33,9 @@
                     <a href="{{ route('users.index') }}" class="btn btn-warning">Nazad</a>
                     <button type="submit" class="btn btn-success float-right">Kreiraj</button>
                 </div>
-
-                @if ($errors->any())
-                <div class="form-group">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>
-                                    {{ $error }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                @endif
                 
+                @include('layouts.errors')
+
             </form>           
         </div>
     </div>

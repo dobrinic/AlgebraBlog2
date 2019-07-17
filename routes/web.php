@@ -18,7 +18,11 @@ Route::get('/', function () {
 /***************** POSTS *******************/
 Route::get('/posts', 'PostController@index')->name('posts.index');
 
+Route::get('/posts/create', 'PostController@create')->name('posts.create');
+
 Route::get('/posts/{id}', 'PostController@show')->name('posts.show');
+
+Route::post('/posts', 'PostController@store')->name('posts.store');
 
 
 /***************** USERS *******************/
@@ -40,7 +44,8 @@ Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
 // obriši usera
 Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 
-
+// ažuriraj korisnika
+Route::patch('/users/{user}','UserController@update')->name('users.update');
 
 
 
