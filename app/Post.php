@@ -30,4 +30,16 @@ class Post extends Model
             ]
         ];
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    // $post->comments
+    // dohvati sve komentare za post
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
 }

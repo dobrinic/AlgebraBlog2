@@ -20,9 +20,15 @@ Route::get('/posts', 'PostController@index')->name('posts.index');
 
 Route::get('/posts/create', 'PostController@create')->name('posts.create');
 
-Route::get('/posts/{id}', 'PostController@show')->name('posts.show');
+Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
 
 Route::post('/posts', 'PostController@store')->name('posts.store');
+
+Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit');
+
+Route::patch('/posts/{post}','PostController@update')->name('posts.update');
+
+Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
 
 
 /***************** USERS *******************/
@@ -47,6 +53,8 @@ Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 // ažuriraj korisnika
 Route::patch('/users/{user}','UserController@update')->name('users.update');
 
+/***************** COMMENTS *******************/
+Route::post('/posts/{post}/comments', 'CommentController@store');
 
 
 Auth::routes();

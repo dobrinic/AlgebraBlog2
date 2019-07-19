@@ -43,4 +43,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    // $user->comments
+    // dohvati sve komentare za usera
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
