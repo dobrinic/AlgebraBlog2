@@ -14,3 +14,5 @@ php artisan migrate
 composer require guzzlehttp/guzzle
 php artisan make:mail Welcome --markdown=emails.welcome
 php artisan config:cache
+php artisan make:model Tag -a
+php artisan migrate
