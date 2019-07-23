@@ -15,14 +15,20 @@ class PostController extends Controller
 
     public function index(){
 
-        // $posts = DB::table('posts')->get();
-
         $posts = Post::latest()->get();
 
         return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post){
+
+        $viewed = session()->get('viewed_posts', []);
+
+        if (!in_array($post->id, $viewed)) {
+            session()->push('viewed_posts', $post->id);
+            $post->increment('views');
+            $post->save();
+        }
 
         return view('posts.show', compact('post'));
     }
@@ -71,6 +77,9 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
+
+      //  \Mail::to($post->user)->send(new PostDeleted($post));
+
 
         return redirect()->route('posts.index')->withFlashMessage("Post $post->title obrisan je uspješno.");
     }

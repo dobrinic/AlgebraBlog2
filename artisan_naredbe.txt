@@ -11,3 +11,6 @@ composer require cviebrock/eloquent-sluggable:^4.8
 php artisan make:model Comment -a
 php artisan make:migration add_user_id_to_comments --table=comments
 php artisan migrate
+composer require guzzlehttp/guzzle
+php artisan make:mail Welcome --markdown=emails.welcome
+php artisan config:cache

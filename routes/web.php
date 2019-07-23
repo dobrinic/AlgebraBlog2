@@ -28,7 +28,7 @@ Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit');
 
 Route::patch('/posts/{post}','PostController@update')->name('posts.update');
 
-Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
+Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy')->middleware('verified');
 
 
 /***************** USERS *******************/
@@ -56,7 +56,6 @@ Route::patch('/users/{user}','UserController@update')->name('users.update');
 /***************** COMMENTS *******************/
 Route::post('/posts/{post}/comments', 'CommentController@store');
 
-
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

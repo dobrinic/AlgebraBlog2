@@ -42,4 +42,8 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
+
+    public static function popular(){
+        return self::orderBy('views', 'desc')->limit(5)->get();
+    }
 }
