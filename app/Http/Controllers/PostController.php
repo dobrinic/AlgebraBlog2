@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -35,34 +36,43 @@ class PostController extends Controller
 
     public function create(){
 
-        return view('posts.create');
+        $tags = Tag::all();
+
+        return view('posts.create', compact('tags'));
     }
 
     public function store()
     {
         request()->validate([
             'title' => 'required|min:3|max:255',
-            'body' => 'required|min:3'
+            'body'  => 'required|min:3',
+            'tags'  => 'required'
         ]);
-        // https://github.com/cviebrock/eloquent-sluggable
-        Post::create([
+
+        $post = Post::create([
             'title' => request('title'),
             'body' => request('body'),
             'user_id' => auth()->id(),
         ]);
 
+        $tags = request('tags');
+        $post->tags()->attach($tags);
+
         return redirect()->route('posts.index')->withFlashMessage("Objava je dodana uspješno.");
     }
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $tags = Tag::all();
+
+        return view('posts.edit', compact('post', 'tags'));
     }
     
     public function update(Request $request, Post $post)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|min:3|max:65535'        
+            'body' => 'required|min:3|max:65535',
+            'tags'  => 'required'     
         ]);
 
         $post->title = $request['title'];
@@ -70,7 +80,9 @@ class PostController extends Controller
         $post->slug = null;
         $post->save();
 
-        return redirect()->route('posts.index')->withFlashMessage("$post->title uspješno je ažuriran.");
+        $post->tags()->sync($request['tags']);
+
+        return redirect()->route('posts.index')->withFlashMessage("Objava \"$post->title\" uspješno je ažurirana.");
     }
 
     public function destroy($id)

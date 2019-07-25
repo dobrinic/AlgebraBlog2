@@ -56,6 +56,12 @@ Route::patch('/users/{user}','UserController@update')->name('users.update');
 /***************** COMMENTS *******************/
 Route::post('/posts/{post}/comments', 'CommentController@store');
 
+/***************** TAGS *******************/
+Route::get('post/tags/{tag}', 'TagController@index')->name('tags.index');
+
+Route::post('/tags', 'TagController@store')->name('tags.store');
+
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
